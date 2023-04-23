@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => {
   res.json({ success: true, date: idea });
 });
 
-//add an idea (Put)
+//add an idea (Post)
 router.post("/", (req, res) => {
   const idea = {
     id: ideas.length + 1,
@@ -54,6 +54,34 @@ router.post("/", (req, res) => {
   ideas.push(idea);
 
   res.json({ success: true, data: idea });
+});
+
+//Update idea (put)
+router.put("/:id", (req, res) => {
+  const idea = ideas.find((idea) => idea.id === +req.params.id);
+
+  if (!idea) {
+    return res.status(404).json({ success: false, error: "Not Found" });
+  }
+
+  idea.text = req.body.text || idea.text;
+  idea.text = req.body.tag || idea.tag;
+
+  res.json({ success: true, date: idea });
+});
+
+//Delete idea
+router.delete("/:id", (req, res) => {
+  const idea = ideas.find((idea) => idea.id === +req.params.id);
+
+  if (!idea) {
+    return res.status(404).json({ success: false, error: "Not Found" });
+  }
+
+  const index = idea.indexOf(idea);
+  idea.splice(index, 1);
+
+  res.json({ success: true, date: {} });
 });
 
 module.exports = router;
