@@ -8,7 +8,6 @@ router.get("/", async (req, res) => {
     const ideas = await Idea.find();
     res.json({ success: true, date: ideas });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ success: false, error: "Something went wrong" });
   }
 });
@@ -19,7 +18,6 @@ router.get("/:id", async (req, res) => {
     const idea = await Idea.findById(req.params.id);
     res.json({ success: true, date: idea });
   } catch (error) {
-    console.log(error);
     res.status(500)({ success: false, error: "Something went wrong" });
   }
 });
@@ -36,7 +34,6 @@ router.post("/", async (req, res) => {
     const savedIdea = await idea.save();
     res.json({ success: true, data: savedIdea });
   } catch (error) {
-    console.log(error);
     res.status(500)({ success: false, error: "Something went wrong" });
   }
 });
@@ -56,7 +53,6 @@ router.put("/:id", async (req, res) => {
     );
     res.json({ success: true, data: updateIdea });
   } catch (error) {
-    console.log(error);
     res.status(500)({ success: false, error: "Something went wrong" });
   }
 });
@@ -67,7 +63,6 @@ router.delete("/:id", async (req, res) => {
     await Idea.findByIdAndDelete(req.params.id);
     res.json({ success: true, date: {} });
   } catch (error) {
-    console.log(error);
     res.status(500)({ success: false, error: "Something went wrong" });
   }
 });
