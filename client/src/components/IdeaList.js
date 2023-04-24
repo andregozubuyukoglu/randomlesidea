@@ -15,6 +15,16 @@ class IdeaList {
     this._validTags.add("inventions");
   }
 
+  addEventListeners() {
+    this._ideaListEl.addEventListener("click", (e) => {
+      if (e.target.classList.contains("fa-times")) {
+        e.stopImmediatePropagation();
+        const ideaId = e.target.parentElement.parentElement.dataset.id;
+        this.deleteIdea(ideaId);
+      }
+    });
+  }
+
   async getIdeas() {
     try {
       const res = await IdeasApi.getIdeas();
@@ -23,6 +33,22 @@ class IdeaList {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async deleteIdea(ideaId) {
+    try {
+      // Delete from server
+      const res = await IdeasApi.deleteIdea(ideaId);
+      this._ideas.filter((idea) => idea._id !== ideaId);
+      this.getIdeas();
+    } catch (error) {
+      alert("You can not delete this resource");
+    }
+  }
+
+  addIdeaToList(idea) {
+    this._ideas.push(idea);
+    this.render();
   }
 
   getTagClass(tag) {
