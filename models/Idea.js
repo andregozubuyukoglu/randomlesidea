@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const IdeaSchema = new mongoose.Schema({
   text: {
     type: String,
-    required: [true, "Please enter a text"],
+    required: [true, 'Please add a text field'],
   },
   tag: {
     type: String,
@@ -17,4 +17,4 @@ const IdeaSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Idea", IdeaSchema);
+module.exports = mongoose.model('Idea', IdeaSchema);
